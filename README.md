@@ -29,6 +29,20 @@ I've only tested the release included in the zip file on my windows 11 pc, so if
 
 For windows users, you should be able to simply download the release zip file, extract it, and continue.
 
+### Building with CMake
+
+The project can be built with CMake. Lucys_Labyrinth is the main target; `llama_cpp` and `SFML-2.6.1` are used as dependencies (subproject and find_package respectively).
+
+```bash
+mkdir build
+cd build
+cmake .. -G "Visual Studio 17 2022" -A x64   # Windows
+# or: cmake .. -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+cmake --build . --config Release
+```
+
+Run the executable from the **project root** (where `textures/`, `sound/`, `fonts/`, and `model/` are), or set the working directory in your IDE to the project root.
+
 Whether you had to build yourself or not, you will need a model file and to place it into the model folder. Any model that works with llama.cpp will work, as the code runs off llama.cpp.
 
 I recommed this one, which balances size and consistency for a good gameplay experience: https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/blob/main/mistral-7b-instruct-v0.1.Q5_K_S.gguf

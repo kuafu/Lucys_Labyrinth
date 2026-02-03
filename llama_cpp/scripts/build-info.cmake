@@ -1,0 +1,47 @@
+# Build info for llama.cpp (used when built as subproject or -P script)
+# Sets BUILD_NUMBER, BUILD_COMMIT, BUILD_COMPILER, BUILD_TARGET
+
+if(DEFINED BUILD_NUMBER AND DEFINED BUILD_COMMIT AND DEFINED BUILD_COMPILER AND DEFINED BUILD_TARGET)
+    return()
+endif()
+
+set(LLAMA_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
+if(EXISTS "${LLAMA_ROOT}/.git")
+    execute_process(
+        COMMAND git rev-parse --short HEAD
+        WORKING_DIRECTORY "${LLAMA_ROOT}"
+        OUTPUT_VARIABLE BUILD_COMMIT
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_QUIET
+    )
+    execute_process(
+        COMMAND git rev-list --count HEAD
+        WORKING_DIRECTORY "${LLAMA_ROOT}"
+        OUTPUT_VARIABLE BUILD_NUMBER
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_QUIET
+    )
+endif()
+
+if(NOT DEFINED BUILD_COMMIT OR BUILD_COMMIT STREQUAL "")
+    set(BUILD_COMMIT "unknown")
+endif()
+if(NOT DEFINED BUILD_NUMBER OR BUILD_NUMBER STREQUAL "")
+    set(BUILD_NUMBER "0")
+endif()
+if(NOT DEFINED BUILD_COMPILER)
+    if(DEFINED CMAKE_C_COMPILER_ID)
+        set(BUILD_COMPILER "${CMAKE_C_COMPILER_ID} ${CMAKE_C_COMPILER_VERSION}")
+    else()
+        set(BUILD_COMPILER "unknown")
+    endif()
+endif()
+if(NOT DEFINED BUILD_TARGET)
+    if(DEFINED CMAKE_VS_PLATFORM_NAME)
+        set(BUILD_TARGET "${CMAKE_VS_PLATFORM_NAME}")
+    elseif(DEFINED CMAKE_SYSTEM_PROCESSOR)
+        set(BUILD_TARGET "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+    else()
+        set(BUILD_TARGET "unknown")
+    endif()
+endif()

@@ -30,3 +30,5 @@ find_package(SFML 2.6 COMPONENTS graphics window system audio main REQUIRED)
 # App: source under Lucys_Labyrinth/ (per Makefile: main.cpp)
 # ---------------------------------------------------------------------------
 add_subdirectory(Lucys_Labyrinth)
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)

@@ -20,8 +20,8 @@ const int PLAYER = 3;
 const int EXIT = 4;
 
 const int TILE_SIZE = 64;
-const unsigned int WINDOW_WIDTH_2K = 2560;
-const unsigned int WINDOW_HEIGHT_2K = 1440;
+const unsigned int WINDOW_WIDTH_2K = 1280;
+const unsigned int WINDOW_HEIGHT_2K = 720;
 
 class Maze {
 private:
